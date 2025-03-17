@@ -72,7 +72,7 @@ function App() {
     <>
 
       <div>
-        <PrimeReactProvider value={value}>
+        {/* <PrimeReactProvider value={value}> */}
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Login/>} />
@@ -83,7 +83,7 @@ function App() {
 
             </Routes>
           </BrowserRouter>
-        </PrimeReactProvider>
+        {/* </PrimeReactProvider> */}
       </div>
     </>
   )

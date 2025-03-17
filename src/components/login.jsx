@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import {LoginUser,reset} from "../features/auth_slice.jsx"
 // import logo from "../logocmt.png";
 import '../../css/login.css';
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import { Card } from 'primereact/card';
-import { Checkbox } from 'primereact/checkbox';
-        
+// import { InputText } from 'primereact/inputtext';
+// import { Button } from 'primereact/button';
+// import { Card } from 'primereact/card';
+// import { Checkbox } from 'primereact/checkbox';
+import { Input } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
+import { Card } from '@chakra-ui/react';
 
 const Login = () => {
     const [email,setEmail]=useState("");
@@ -41,13 +43,13 @@ const Login = () => {
                 <div>
                     <div className='input_block'>
                         <label htmlFor="email"  className="block text-lg font-medium mb-2">email</label>
-                        <InputText className="w-full p-3 text-lg border border-gray-300 rounded-md" id="email" name='email' autocomplete="on" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='email'/>
+                        <Input className="w-full p-3 text-lg border border-gray-300 rounded-md" id="email" name='email' autocomplete="on" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='email'/>
                     </div>
                     <div className='input_block'>
                         <label htmlFor="email"  className="block text-lg font-medium mb-2">password</label>
-                        <InputText className="w-full p-3 text-lg border border-gray-300 rounded-md" id="password" name='password' autoComplete="current-password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password'/>
+                        <Input className="w-full p-3 text-lg border border-gray-300 rounded-md" id="password" name='password' autoComplete="current-password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='password'/>
                     </div>
-                    <Button className="w-full p-3 text-lg login_button"  type="submit"  label={isLoading ?"Loading..." : "Είσοδος"}  icon="pi pi-user" ></Button>
+                    <Button colorScheme='teal' className="w-full p-3 text-lg login_button"  type="submit"  label={isLoading ?"Loading..." : "Είσοδος"}  icon="pi pi-user" ></Button>
                     {isError && <p className='has-text-centered alert alert-danger'>{message}</p>}
                 </div>
             </form>
