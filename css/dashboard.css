@@ -1,0 +1,111 @@
+.global-class-name{
+    font-size:100px;
+    background: #268900;
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.kpis-number{
+    font-size:80px;
+    font-weight: 500;
+}
+
+.icon-div{
+    background: #d9d9d9;
+    width: fit-content;
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.totals-text{
+    font-size: 20px;
+    font-weight: 400;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.layout-kpis{
+    
+        display: flex;
+        align-items: center;
+        align-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: column;
+    
+}
+
+
+.list-item{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+}
+
+.circle{
+    width: 15px; /* Adjust size as needed */
+    height: 15px; /* Adjust size as needed */
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px; /* Adjust spacing between circle and text */}
+
+.led {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    border-radius: 50%;
+    background-color: green; /* Initial color */
+    box-shadow: 0 0 5px green, 0 0 10px green, 0 0 15px green, 0 0 20px green; /* Glow effect */
+    display: inline-block; /* Ensures it behaves like an inline element */
+    margin-right: 10px; /* Space between LED and text */
+    }
+
+.Filters
+{
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    border-radius: 15px;
+    background-color: #0090FE;
+    color: #EFEFEF;
+}
+
+.FiltersYear
+{
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    border-radius: 15px;
+    background-color: #0090FE;
+    color: #EFEFEF;
+}
+
+.Filters.selected {
+    background-color: green;
+  }
+
+.Scenario
+{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.col-md-12 {
+    background:#dbdbdb;
+    border-radius: 18px;
+
+}
+
+.row{
+    padding-bottom:15px;
+}
+
+.boxclass {
+    margin-top:32px;
+    border: 1px solid lightgrey;
+    border-radius: 18px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

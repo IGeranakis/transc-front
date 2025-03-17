@@ -1,0 +1,18 @@
+.input_block {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-top:5%;
+    padding-bottom: 5%;
+}
+.login_button{
+    background-color: cadetblue;
+    
+}
+.login {
+    display: grid !important;
+    justify-content: center;  /* Center horizontally */
+    /*align-items: center;      /* Center vertically */
+    /*height: 100vh;            /* Full viewport height */
+    padding: 10px;            /* Prevents content from touching screen edges */
+}
