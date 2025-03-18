@@ -6,6 +6,7 @@ import { LogOut,reset } from '../features/auth_slice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
+import AudioTranscriber from '../components/ai_transciption/AudioTranscriber';
 const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Dashboard = () => {
     <Layout>
         <Button onClick={handleLogout}>LOG OUT</Button>
         <Welcome />
+        <AudioTranscriber/>
     </Layout>
   );
   
