@@ -7,7 +7,6 @@ import Navbar from '../components/navbar.jsx';
 const Layout = ({children}) => {
   return (
     <React.Fragment>
-      <Navbar/>
       <div className='parent'>
         <div className="column has-background-light child">
           <main>{children}</main>

@@ -3,6 +3,9 @@ import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { Card } from "primereact/card";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { TranscriptionContext } from "../../pages/dashboard";
+import { useContext } from "react";
+import { useEffect } from "react";
 
 const AudioTranscriber = () => {
     const [useRecording, setUseRecording] = useState(false);
@@ -15,6 +18,17 @@ const AudioTranscriber = () => {
     const [recordingDuration, setRecordingDuration] = useState(0);
     const mediaRecorderRef = useRef(null);
     const recordingIntervalRef = useRef(null);
+
+    const { setTransc } = useContext(TranscriptionContext);
+    // setTransc([...transc, "...Loading"]);
+
+    useEffect(() => {
+        if (transcription) {
+          // Only update the context with transcription if it's non-empty
+          setTransc(transcription); 
+        }
+      }, [transcription, setTransc]);
+    
 
     const handleFileUpload = (event) => {
         const file = event.files[0];
@@ -88,11 +102,13 @@ const AudioTranscriber = () => {
 
             const data = await response.json();
             setTranscription(data.text);
+
         } catch (error) {
             console.error("Error transcribing:", error);
-            setTranscription("Error transcribing audio.");
+            //setTranscription("Error transcribing audio.");
         } finally {
             setIsTranscribing(false);
+
         }
     };
 
@@ -117,11 +133,16 @@ const AudioTranscriber = () => {
                     </div>
                 )}
 
+                <div>
+
                 {audioSrc && <audio src={audioSrc} controls className="mt-3" />}
 
                 {audioFile && (
                     <Button label={isTranscribing ? "Transcribing..." : "Transcribe Audio"} className="p-button-warning mt-3" onClick={transcribeAudio} disabled={isTranscribing} />
                 )}
+                    
+                </div>
+                
 
                 {isTranscribing && <ProgressSpinner className="mt-3" />}
 

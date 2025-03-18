@@ -4,6 +4,7 @@ import FormAddUser from '../../components/user_components/FormAddUser.jsx'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getMe } from '../../features/auth_slice.jsx'
+import Navbar from '../../components/navbar.jsx'
 
 const AddUser = () => {
   const dispatch = useDispatch();
@@ -23,9 +24,13 @@ const AddUser = () => {
   //     }
   // },[isError,user,navigate]);
   return (
+    <>
+    <Navbar/>
     <Layout>
         <FormAddUser/>
     </Layout>
+    </>
+    
   )
 }
 

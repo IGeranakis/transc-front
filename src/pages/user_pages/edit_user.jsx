@@ -4,6 +4,7 @@ import FormEditUser from '../../components/user_components/FormEditUser'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getMe } from '../../features/auth_slice.jsx'
+import Navbar from '../../components/navbar.jsx'
 
 const EditUser = () => {
   const dispatch = useDispatch();
@@ -23,9 +24,13 @@ const EditUser = () => {
   //     }
   // },[isError,user,navigate]);
   return (
+    <>
+    <Navbar/>
     <Layout>
         <FormEditUser/>
     </Layout>
+    </>
+    
   )
 }
 

@@ -4,6 +4,7 @@ import UserList from '../../components/user_components/UserList.jsx'
 import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getMe } from '../../features/auth_slice.jsx'
+import Navbar from '../../components/navbar.jsx'
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -26,9 +27,13 @@ const Users = () => {
   //     }
   // },[isError,user,navigate]);
   return (
+    <>
+    <Navbar/>
     <Layout>
         <UserList/>
     </Layout>
+    </>
+    
   )
 }
 
