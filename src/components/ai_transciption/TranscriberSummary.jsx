@@ -17,7 +17,7 @@ const TranscriberSummary = () => {
 
     const model = new ChatOpenAI({
         openAIApiKey: import.meta.env.VITE_OPENAI_API_KEY,
-        temperature: 0.7,
+        temperature: 0,
     });
 
     // ✅ Function to split text into chunks
@@ -52,20 +52,14 @@ const TranscriberSummary = () => {
 
             for (let chunk of chunks) {
                 const cleanPrompt = PromptTemplate.fromTemplate(`
+                You are a helpful assistant that will help optimize the initial transcription.
+                Your task is to correct any spelling discrepancies in the transcribed text.
+                Only add necessary punctuation such as periods, commas, and capitalization, and use only the context provided.
                 The text is about {desc}. The number of speakers are {speakers}.
-
-                You are a helpful AI that will optimize a transcribed conversation while keeping it natural and easy to read.
-                1. Fix punctuation, spelling, and capitalization.  
-                2. Use a '-' before each speaker change (instead of "Speaker 1:").  
-                3. Remove filler words ("um", "uh", "you know"), unless necessary for tone.  
-                4. Break long sentences into shorter, readable ones.  
-                5. Keep contractions (e.g., "I'm" instead of "I am").  
-                6. If someone speaks for too long, split it into smaller paragraphs.  
-                7. Preserve informal speech while improving clarity.  
-                8. Format the response in a clean, readable way.
-
+                I'd like in the output to try to separate each speaker using a '-' and different paragraphs if the speakers are more than one.
                 Here is a part of the transcription:
-                {chunk}`);
+                {chunk}
+                `);
 
                 const formattedPrompt = await cleanPrompt.format({
                     desc,
