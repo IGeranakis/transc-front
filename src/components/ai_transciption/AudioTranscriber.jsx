@@ -6,6 +6,8 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { TranscriptionContext } from "../../pages/dashboard";
 import { useContext } from "react";
 import { useEffect } from "react";
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import { saveAs } from "file-saver";
 
 const AudioTranscriber = () => {
     const [useRecording, setUseRecording] = useState(false);
@@ -112,9 +114,57 @@ const AudioTranscriber = () => {
         }
     };
 
+    const formatTextForDocx = (text) => {
+        if (!text) return "No content available.";
+
+        // Ensure a newline before each "-"
+        const formattedText = text.replace(/-/g, "\n-");
+
+        // Split into paragraphs for better formatting
+        return formattedText.split("\n").map(line => new Paragraph({ text: line }));
+    };
+
+    const exportToDocx = (type) => {
+      let docContent, fileName;
+
+      if (type === "transcription") {
+          docContent = transcription;
+          fileName = "Initial_Transcription.docx";
+      } else if (type === "summary") {
+          docContent = summary;
+          fileName = "Summary.docx";
+      }
+
+      const doc = new Document({
+          sections: [
+              {
+                  properties: {},
+                  children: [
+                      new Paragraph({
+                          children: [
+                              new TextRun({
+                                  text: type === "transcription" ? "Initial Transcription" : "Summary",
+                                  bold: true,
+                                  size: 24,
+                              }),
+                          ],
+                      }),
+                      ...formatTextForDocx(docContent),
+                  ],
+              },
+          ],
+      });
+
+      Packer.toBlob(doc).then((blob) => {
+          saveAs(blob, fileName);
+      });
+  };
+
     return (
         <div className="p-4">
             <Card>
+                {!transcription && (
+                <div>
                 <h5>Choose Audio Input</h5>
                 <div className="mb-3">
                     <Button label="Upload File" className={!useRecording ? "p-button-primary" : "p-button-outlined"} onClick={() => setUseRecording(false)} />
@@ -140,17 +190,28 @@ const AudioTranscriber = () => {
                 {audioFile && (
                     <Button label={isTranscribing ? "Transcribing..." : "Transcribe Audio"} className="p-button-warning mt-3" onClick={transcribeAudio} disabled={isTranscribing} />
                 )}
+
                     
                 </div>
+                </div>
+                )}
                 
 
                 {isTranscribing && <ProgressSpinner className="mt-3" />}
 
                 {transcription && (
+                    <div>
                     <div className="mt-3">
                         <h5>Transcribed Text:</h5>
                         <p className="p-2 border-1 surface-border">{transcription}</p>
                     </div>
+                    <Button
+                    label="Export Initial Transcription"
+                    className="p-button-success"
+                    onClick={() => exportToDocx("transcription")}
+                    style={{ marginTop: "1rem" }}
+                />
+                </div>
                 )}
             </Card>
         </div>
