@@ -133,6 +133,10 @@ const TranscriberSummary = () => {
       });
   };
 
+  const handleReset = () => {
+    window.location.reload(); // Reload the page
+};
+
     return (
         <div>
             <h3>Transcription Optimization</h3>
@@ -211,6 +215,17 @@ const TranscriberSummary = () => {
                             onClick={() => exportToDocx("summary")}
                             style={{ marginTop: "1rem" }}
                         />
+                    )}
+
+                    {/* RESET BUTTON: Display only if transcription or summary exists */}
+                    {(correctedText && summary) && (
+                        <div style={{ marginTop: "2rem" }}>
+                            <Button
+                                label="Reset"
+                                className="p-button-danger"
+                                onClick={handleReset}
+                            />
+                        </div>
                     )}
                 </>
             )}
