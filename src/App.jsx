@@ -11,7 +11,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css'; 
 import { useSelector,useDispatch } from 'react-redux'
 import ProtectedRoute from './components/protected_route.jsx'
-
+import History from './pages/history_pages/history.jsx'
 
 // 📌 Light Themes
 // import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
@@ -80,6 +80,7 @@ function App() {
               <Route path="/users" element={<ProtectedRoute requiredRole="user"><Users/></ProtectedRoute>} />
               <Route path="/users/add" element={<ProtectedRoute requiredRole="user"><AddUser/></ProtectedRoute>}></Route>
               <Route path="/users/edit/:id" element={<ProtectedRoute requiredRole="user"><EditUser/></ProtectedRoute>}></Route>
+              <Route path='/history' element={<ProtectedRoute><History/></ProtectedRoute>}></Route>
 
             </Routes>
           </BrowserRouter>

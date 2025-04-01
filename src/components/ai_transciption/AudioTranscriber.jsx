@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import { saveAs } from "file-saver";
+import { useSelector } from "react-redux";
 
 const AudioTranscriber = () => {
     const [useRecording, setUseRecording] = useState(false);
@@ -23,6 +24,10 @@ const AudioTranscriber = () => {
 
     const { setTransc } = useContext(TranscriptionContext);
     // setTransc([...transc, "...Loading"]);
+    const { user } = useSelector((state) => state.auth);
+    const {setTranscriptionId} = useContext(TranscriptionContext);
+
+
 
     useEffect(() => {
         if (transcription) {
@@ -95,15 +100,19 @@ const AudioTranscriber = () => {
 
         const formData = new FormData();
         formData.append("file", audioFile);
-        
+        formData.append('uuid', user.uuid);
+        formData.append('name', audioFileName || "recording");
+
         try {
             const response = await fetch("http://localhost:5000/transcribe", {
                 method: "POST",
-                body: formData,
+                body: formData
+                
             });
 
             const data = await response.json();
             setTranscription(data.text);
+            setTranscriptionId(data.record_id);
 
         } catch (error) {
             console.error("Error transcribing:", error);
@@ -203,7 +212,9 @@ const AudioTranscriber = () => {
                     <div>
                     <div className="mt-3">
                         <h5>Transcribed Text:</h5>
-                        <p className="p-2 border-1 surface-border">{transcription}</p>
+                        <p className="p-2 border-1 surface-border">{transcription.map(item => item.text).join(' ')}</p>
+                        {console.log(transcription)}
+                        {/* {console.log(transcriptionId)} */}
                     </div>
                     <Button
                     label="Export Initial Transcription"

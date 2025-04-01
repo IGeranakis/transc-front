@@ -10,6 +10,7 @@ import axios from "axios";
 import { Document, Packer, Paragraph, TextRun } from "docx";
 import { useEffect } from "react";
 import { saveAs } from "file-saver";
+import { useSelector } from "react-redux";
 const TranscriberSummary = () => {
     const { transc: transcription } = useContext(TranscriptionContext);
     const [desc, setDesc] = useState("");
@@ -19,6 +20,11 @@ const TranscriberSummary = () => {
     const [correctedText, setCorrectedText] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const { transcriptionId } = useContext(TranscriptionContext);
+
+    const {user} =useSelector((state)=>state.auth);
+
+
 
     useEffect(() => {
         if (correctedText) {
@@ -40,7 +46,10 @@ const TranscriberSummary = () => {
         try {
           const response = await axios.post("http://localhost:5000/correctTranscribe", {
             desc: desc,
-            speakers: speakers
+            speakers: speakers,
+            textId:transcriptionId,
+            uuid:user.uuid
+
           }, {
             headers: { "Content-Type": "application/json" }
         });
@@ -73,7 +82,8 @@ const TranscriberSummary = () => {
     
         try {
           const response = await axios.post("http://localhost:5000/summarize", {
-            transcription: correctedText
+            //transcription: correctedText,
+            textId:transcriptionId
           }, {
             headers: { "Content-Type": "application/json" }
         });
@@ -174,6 +184,7 @@ const TranscriberSummary = () => {
                     <InputTextarea
                         variant="outlined"
                         readOnly
+                        autoResize
                         value={correctedText}
                         rows={15}
                         cols={120}
@@ -198,6 +209,7 @@ const TranscriberSummary = () => {
                     <InputTextarea
                         variant="outlined"
                         readOnly
+                        autoResize
                         value={summary}
                         rows={15}
                         cols={120}

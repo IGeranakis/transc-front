@@ -18,6 +18,8 @@ const Navbar=()=>{
     const items = [
         { key:"home", label: "Home", icon: "pi pi-home",url:'/dashboard' },
         { key:"users", label: "Users", icon: "pi pi-users",url:'/users' },
+        { key:"history", label: "History", icon: "pi pi-users",url:'/history' },
+
     ];
     const end=[
         <div key="right-side-btns" className="flex gap-1">
